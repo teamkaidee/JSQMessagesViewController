@@ -127,6 +127,7 @@ JSQMessagesKeyboardControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomLayoutGuide;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewBottomLayoutGuide;
 
 @property (weak, nonatomic) UIView *snapshotView;
 
@@ -1152,4 +1153,14 @@ JSQMessagesKeyboardControllerDelegate>
     }
 }
 
+- (void)viewSafeAreaInsetsDidChange
+{
+    [super viewSafeAreaInsetsDidChange];
+    self.toolbarBottomLayoutGuide.active = NO;
+    self.toolbarBottomLayoutGuide = [NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.inputToolbar attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+    self.toolbarBottomLayoutGuide.active = YES;
+    self.collectionViewBottomLayoutGuide.active = NO;
+    self.collectionViewBottomLayoutGuide = [NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.collectionView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0.0f];
+    self.collectionViewBottomLayoutGuide.active = YES;
+}
 @end
